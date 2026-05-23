@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Domovoy - Coliving near Porto | A room for a hand, not for rent</title>
+<meta name="description" content="A smart home near Porto with private rooms open to remote workers and families — no rent, in exchange for everyday company and a hand with small things." />
+<style>
+  :root {
+    --bone: #F3ECE0;
+    --bone-2: #FBF6EC;
+    --ink: #2A241E;
+    --ink-soft: #5C5346;
+    --clay: #BE4A29;
+    --clay-deep: #9A3A1F;
+    --sage: #5E6A52;
+    --sand: #E7DCC8;
+    --sand-deep: #DBCDB2;
+    --line: #D2C5AC;
+    --maxw: 1180px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif;
+    background: var(--bone);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* grain overlay */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  h1, h2, h3 {
+    font-family: 'Iowan Old Style','Hoefler Text','Palatino Linotype',Palatino,Georgia,serif;
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+  }
+
+  a { color: inherit; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  .mono {
+    font-family: ui-monospace,'SF Mono',Menlo,Consolas,'Roboto Mono',monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    transition: background .35s ease, box-shadow .35s ease, padding .35s ease;
+    padding: 22px 0;
+  }
+  nav.scrolled {
+    background: rgba(243,236,224,0.92);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 var(--line);
+    padding: 14px 0;
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 11px; font-family: 'Iowan Old Style','Hoefler Text','Palatino Linotype',Palatino,Georgia,serif; font-size: 1.32rem; font-weight: 600; letter-spacing: -0.02em; }
+  .brand svg { width: 30px; height: 30px; flex-shrink: 0; }
+  .nav-links { display: flex; gap: 30px; align-items: center; }
+  .nav-links a { text-decoration: none; font-size: 0.95rem; font-weight: 500; color: var(--ink-soft); transition: color .2s; }
+  .nav-links a:hover { color: var(--clay); }
+  .btn {
+    display: inline-block; background: var(--clay); color: var(--bone-2);
+    padding: 12px 22px; border-radius: 100px; text-decoration: none;
+    font-weight: 600; font-size: 0.95rem; transition: transform .2s ease, background .2s ease;
+    border: none; cursor: pointer;
+  }
+  .btn:hover { background: var(--clay-deep); transform: translateY(-2px); }
+  .btn-ghost {
+    background: transparent; color: var(--ink); border: 1.5px solid var(--ink);
+  }
+  .btn-ghost:hover { background: var(--ink); color: var(--bone-2); }
+  .menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 6px; }
+  .menu-toggle span { display: block; width: 26px; height: 2px; background: var(--ink); margin: 5px 0; transition: .3s; }
+
+  /* ---------- hero ---------- */
+  header.hero { position: relative; padding: 170px 0 90px; overflow: hidden; }
+  .hero-glow {
+    position: absolute; top: -10%; right: -8%; width: 620px; height: 620px;
+    background: radial-gradient(circle, rgba(190,74,41,0.22), transparent 65%);
+    pointer-events: none;
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: center; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--clay); margin-bottom: 26px; }
+  .hero-eyebrow::before { content: ""; width: 26px; height: 1.5px; background: var(--clay); }
+  h1 {
+    font-size: clamp(2.7rem, 5.6vw, 4.5rem);
+    margin-bottom: 26px;
+  }
+  h1 em { font-style: italic; color: var(--clay); }
+  .hero-sub { font-size: 1.15rem; color: var(--ink-soft); max-width: 33em; margin-bottom: 34px; }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-meta { margin-top: 40px; display: flex; gap: 34px; flex-wrap: wrap; }
+  .hero-meta div { }
+  .hero-meta .n { font-family: 'Iowan Old Style','Hoefler Text','Palatino Linotype',Palatino,Georgia,serif; font-size: 1.9rem; font-weight: 600; color: var(--ink); }
+  .hero-meta .l { font-size: 0.84rem; color: var(--ink-soft); }
+
+  /* ---------- photo placeholder ---------- */
+  .ph {
+    position: relative;
+    background:
+      linear-gradient(135deg, rgba(190,74,41,0.10), rgba(94,106,82,0.12)),
+      var(--sand);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .ph::before {
+    content: "";
+    position: absolute; inset: 10px;
+    border: 1px dashed rgba(42,36,30,0.22);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+  .ph__icon { width: 40px; height: 40px; opacity: 0.5; margin-bottom: 12px; }
+  .ph__cap { font-size: 0.85rem; color: var(--ink-soft); text-align: center; padding: 0 20px; max-width: 24em; }
+  .ph__tag { position: absolute; top: 14px; left: 16px; color: var(--ink-soft); opacity: 0.7; }
+  .ph--hero { aspect-ratio: 4 / 5; }
+  .ph--wide { aspect-ratio: 16 / 10; }
+  .ph--sq { aspect-ratio: 1 / 1; }
+  .ph--tall { aspect-ratio: 3 / 4; }
+
+  /* ---------- generic section ---------- */
+  section { padding: 96px 0; position: relative; }
+  .sec-head { max-width: 40em; margin-bottom: 56px; }
+  .sec-num { color: var(--clay); margin-bottom: 16px; display: block; }
+  h2 { font-size: clamp(2rem, 3.8vw, 3rem); margin-bottom: 18px; }
+  .sec-head p { font-size: 1.08rem; color: var(--ink-soft); }
+
+  /* ---------- idea / band ---------- */
+  .band { background: var(--ink); color: var(--bone); }
+  .band .sec-num { color: #E59C7E; }
+  .band .sec-head p, .band p.lead { color: rgba(243,236,224,0.78); }
+  .idea-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+  .idea-card { border-top: 1.5px solid rgba(243,236,224,0.25); padding-top: 22px; }
+  .idea-card .k { font-family: ui-monospace,'SF Mono',Menlo,Consolas,'Roboto Mono',monospace; font-size: 0.78rem; color: #E59C7E; letter-spacing: 0.1em; }
+  .idea-card h3 { font-size: 1.4rem; margin: 12px 0 10px; color: var(--bone-2); }
+  .idea-card p { color: rgba(243,236,224,0.7); font-size: 0.98rem; }
+
+  /* ---------- house ---------- */
+  .house-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .house-grid .span2 { grid-column: span 2; }
+  .feat-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px 40px; margin-top: 40px; }
+  .feat {
+    display: flex; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--line);
+    align-items: flex-start;
+  }
+  .feat svg { width: 22px; height: 22px; flex-shrink: 0; color: var(--clay); margin-top: 3px; }
+  .feat .ft { font-weight: 600; }
+  .feat .fd { font-size: 0.92rem; color: var(--ink-soft); }
+
+  /* ---------- the exchange ---------- */
+  .exchange { background: var(--bone-2); }
+  .ex-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .ex-col { padding: 44px 40px; }
+  .ex-col:first-child { border-right: 1px solid var(--line); background: var(--sand); }
+  .ex-col h3 { font-size: 1.55rem; margin-bottom: 8px; }
+  .ex-col .ex-lead { font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 26px; }
+  .ex-item { display: flex; gap: 13px; padding: 13px 0; align-items: flex-start; }
+  .ex-item .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--clay); flex-shrink: 0; margin-top: 9px; }
+  .ex-col.get .ex-item .dot { background: var(--sage); }
+  .ex-item span { font-size: 0.99rem; }
+  .ex-note { margin-top: 26px; font-size: 0.95rem; color: var(--ink-soft); }
+  .ex-note strong { color: var(--ink); }
+
+  /* ---------- who ---------- */
+  .who-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .who-list { list-style: none; }
+  .who-list li { padding: 16px 0; border-bottom: 1px solid var(--line); font-size: 1.05rem; display: flex; gap: 14px; }
+  .who-list li::before { content: "→"; color: var(--clay); font-weight: 600; }
+  .who-not { background: var(--sand); border-radius: 6px; padding: 30px 32px; }
+  .who-not h3 { font-size: 1.25rem; margin-bottom: 14px; }
+  .who-not p { color: var(--ink-soft); font-size: 0.98rem; }
+
+  /* ---------- location ---------- */
+  .loc { background: var(--sage); color: var(--bone-2); }
+  .loc .sec-num { color: #D9DEC9; }
+  .loc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+  .loc-points { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 30px; margin-top: 30px; }
+  .loc-points div .lp-n { font-family: 'Iowan Old Style','Hoefler Text','Palatino Linotype',Palatino,Georgia,serif; font-size: 1.5rem; font-weight: 600; }
+  .loc-points div .lp-l { font-size: 0.88rem; color: rgba(251,246,236,0.72); }
+  .loc .ph { background: linear-gradient(135deg, rgba(0,0,0,0.12), rgba(255,255,255,0.08)), rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.3); }
+  .loc .ph__cap, .loc .ph__tag { color: rgba(251,246,236,0.85); }
+  .loc .ph::before { border-color: rgba(255,255,255,0.3); }
+
+  /* ---------- apply ---------- */
+  .apply-box {
+    background: var(--ink); color: var(--bone); border-radius: 10px;
+    padding: 60px 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;
+  }
+  .apply-box h2 { color: var(--bone-2); }
+  .apply-box .sec-num { color: #E59C7E; }
+  .apply-box p { color: rgba(243,236,224,0.78); margin-bottom: 22px; }
+  .apply-list { list-style: none; margin-bottom: 26px; }
+  .apply-list li { padding: 9px 0; font-size: 0.96rem; color: rgba(243,236,224,0.85); border-bottom: 1px solid rgba(243,236,224,0.15); display: flex; gap: 12px; }
+  .apply-list li .qn { font-family: ui-monospace,'SF Mono',Menlo,Consolas,'Roboto Mono',monospace; font-size: 0.78rem; color: #E59C7E; }
+  .apply-box .btn { font-size: 1.02rem; padding: 15px 28px; }
+
+  /* ---------- contact icons ---------- */
+  .contact-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .ci { display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; border-radius: 50%; background: rgba(243,236,224,0.12); transition: transform .2s ease, background .2s ease; text-decoration: none; }
+  .ci:hover { transform: translateY(-2px); background: rgba(243,236,224,0.22); }
+  .contact-or { font-size: 0.93rem; color: rgba(243,236,224,0.62); }
+  .contact-or a { color: rgba(243,236,224,0.85); text-decoration: underline; text-underline-offset: 3px; }
+  .contact-or a:hover { color: var(--clay); }
+  .foot-ci { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: rgba(243,236,224,0.75); padding: 4px 0; font-size: 0.95rem; }
+  .foot-ci:hover { color: var(--clay); }
+
+  /* ---------- faq ---------- */
+  .faq-item { border-bottom: 1px solid var(--line); }
+  .faq-q {
+    width: 100%; background: none; border: none; cursor: pointer; text-align: left;
+    padding: 24px 0; display: flex; justify-content: space-between; align-items: center; gap: 20px;
+    font-family: 'Iowan Old Style','Hoefler Text','Palatino Linotype',Palatino,Georgia,serif; font-size: 1.22rem; font-weight: 500; color: var(--ink);
+  }
+  .faq-q .ic { font-size: 1.6rem; color: var(--clay); transition: transform .3s ease; flex-shrink: 0; line-height: 1; }
+  .faq-item.open .faq-q .ic { transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+  .faq-a p { padding: 0 0 24px; color: var(--ink-soft); max-width: 52em; }
+
+  /* ---------- footer ---------- */
+  footer { background: var(--ink); color: rgba(243,236,224,0.6); padding: 64px 0 40px; }
+  .foot-top { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; padding-bottom: 36px; border-bottom: 1px solid rgba(243,236,224,0.15); }
+  .foot-brand { display: flex; align-items: center; gap: 11px; font-family: 'Iowan Old Style','Hoefler Text','Palatino Linotype',Palatino,Georgia,serif; font-size: 1.3rem; font-weight: 600; color: var(--bone-2); }
+  .foot-brand svg { width: 28px; height: 28px; }
+  .foot-cols { display: flex; gap: 56px; flex-wrap: wrap; }
+  .foot-col h4 { font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(243,236,224,0.45); margin-bottom: 14px; }
+  .foot-col a { display: block; text-decoration: none; color: rgba(243,236,224,0.75); padding: 4px 0; font-size: 0.95rem; }
+  .foot-col a:hover { color: var(--clay); }
+  .foot-bottom { padding-top: 28px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 0.85rem; }
+  .foot-note { max-width: 30em; }
+
+  /* ---------- reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 900px) {
+    .hero-grid, .house-grid, .ex-grid, .who-grid, .loc-grid, .apply-box, .idea-grid, .feat-list, .loc-points { grid-template-columns: 1fr; }
+    .house-grid .span2 { grid-column: span 1; }
+    .ex-col:first-child { border-right: none; border-bottom: 1px solid var(--line); }
+    .nav-links { display: none; }
+    .menu-toggle { display: block; }
+    .nav-links.open {
+      display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--bone-2); padding: 24px 28px; gap: 18px; box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    }
+    header.hero { padding: 130px 0 70px; }
+    section { padding: 70px 0; }
+    .apply-box { padding: 42px 30px; }
+    .ph--hero { aspect-ratio: 4 / 3; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">
+      <svg viewBox="0 0 32 32" fill="none">
+        <path d="M16 3 4 13v15h24V13L16 3Z" stroke="#BE4A29" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="16" cy="20" r="3.4" fill="#BE4A29"/>
+        <path d="M16 20v6" stroke="#BE4A29" stroke-width="2"/>
+      </svg>
+      Domovoy
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#idea">The idea</a>
+      <a href="#house">The house</a>
+      <a href="#exchange">How it works</a>
+      <a href="#who">Who it's for</a>
+      <a href="#faq">FAQ</a>
+      <a href="#apply" class="btn">Apply to live here</a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div class="hero-glow"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="hero-eyebrow mono">Coliving &mdash; A smart home near Porto, Portugal</span>
+      <h1>The house runs itself. What I&rsquo;d like is good <em>company</em>.</h1>
+      <p class="hero-sub">
+        I&rsquo;m an older entrepreneur living near Porto. My children have grown up and scattered across different countries, and this smart home I built is far bigger than one person needs. I&rsquo;m also half-disabled &mdash; I don&rsquo;t move around as fast as I used to. So rather than rent rooms out, I open them to remote workers, makers and families who&rsquo;d rather not pay rent. There&rsquo;s no money in this. What I ask is simple: be part of the household, lend a hand with small everyday things, and keep me good company &mdash; in English, ideally, since I&rsquo;m still learning it.
+      </p>
+      <div class="hero-cta">
+        <a href="#apply" class="btn">Apply to live here</a>
+        <a href="#exchange" class="btn btn-ghost">How it works</a>
+      </div>
+      <div class="hero-meta">
+        <div><div class="n">2</div><div class="l">private rooms open</div></div>
+        <div><div class="n">EUR&nbsp;0</div><div class="l">no rent, bills included</div></div>
+        <div><div class="n">15&nbsp;min</div><div class="l">to the ocean</div></div>
+      </div>
+    </div>
+    <div>
+      <!-- Replace this whole <figure> with: <img src="house-exterior.jpg" alt="The Domovoy house"> -->
+      <figure class="ph ph--hero">
+        <span class="ph__tag mono">Photo 01</span>
+        <svg class="ph__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-6h6v6"/>
+        </svg>
+        <span class="ph__cap">The house &mdash; exterior, seen from the garden</span>
+      </figure>
+    </div>
+  </div>
+</header>
+
+<!-- ================= THE IDEA ================= -->
+<section class="band" id="idea">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num mono">01 &mdash; The idea</span>
+      <h2>A household, not a rental</h2>
+      <p>
+        This isn&rsquo;t a business and it isn&rsquo;t a hostel &mdash; it&rsquo;s my home. The idea is old and simple: the way a big house used to work, with a few people under one roof, everyone doing what they can. The smart-home system takes care of the house. What a system can&rsquo;t do is be human &mdash; company, a hand, understanding. That part is what we share instead of rent. Coliving, in the most literal sense: we live together, and we work together.
+      </p>
+    </div>
+    <div class="idea-grid">
+      <div class="idea-card reveal">
+        <span class="k">/ live</span>
+        <h3>A room of your own</h3>
+        <p>A private bedroom with two beds, fully furnished, yours for the length of your stay.</p>
+      </div>
+      <div class="idea-card reveal">
+        <span class="k">/ work</span>
+        <h3>A real place to work</h3>
+        <p>Fast fibre, a proper desk and quiet space &mdash; built for people who actually work.</p>
+      </div>
+      <div class="idea-card reveal">
+        <span class="k">/ share</span>
+        <h3>Time, not money</h3>
+        <p>No rent and no fee. In return, a little everyday help and genuinely good company.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE HOUSE ================= -->
+<section id="house">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num mono">02 &mdash; The house</span>
+      <h2>A smart home that takes care of the basics</h2>
+      <p>
+        I built Domovoy as a near-complete smart home. It manages climate, lighting, security and energy on its own, and access is handled through an app &mdash; so the house is genuinely secure. It was also built to keep a quiet eye on the people inside it: if someone falls or something is wrong, the house notices. That&rsquo;s the part I&rsquo;m proudest of.
+      </p>
+    </div>
+
+    <div class="house-grid">
+      <!-- Replace each <figure> with an <img> when photos are ready -->
+      <figure class="ph ph--wide span2">
+        <span class="ph__tag mono">Photo 02</span>
+        <svg class="ph__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 5l9 7 9-7"/>
+        </svg>
+        <span class="ph__cap">The common room &mdash; shared living &amp; workspace</span>
+      </figure>
+      <figure class="ph ph--sq">
+        <span class="ph__tag mono">Photo 03</span>
+        <svg class="ph__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-6h6v6"/>
+        </svg>
+        <span class="ph__cap">Private bedroom &mdash; one of two open</span>
+      </figure>
+      <figure class="ph ph--sq">
+        <span class="ph__tag mono">Photo 04</span>
+        <svg class="ph__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>
+        </svg>
+        <span class="ph__cap">Kitchen, terrace or a detail of the house</span>
+      </figure>
+    </div>
+
+    <div class="feat-list">
+      <div class="feat reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v18M3 12h18"/></svg>
+        <div><div class="ft">Two private bedrooms</div><div class="fd">Each with two beds and fully furnished &mdash; room for one person, a couple or a small family.</div></div>
+      </div>
+      <div class="feat reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="13" rx="1"/><path d="M8 21h8"/></svg>
+        <div><div class="ft">Common room &amp; workspace</div><div class="fd">A calm lounge that doubles as a place to work &mdash; desks, light, and a terrace you can work from too.</div></div>
+      </div>
+      <div class="feat reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12.5a9 9 0 0 1 14 0M8.5 16a4.5 4.5 0 0 1 7 0M12 19h.01"/></svg>
+        <div><div class="ft">Fast fibre, everywhere</div><div class="fd">Wi-Fi repeaters through the whole house and outside, so you can work from anywhere on the property.</div></div>
+      </div>
+      <div class="feat reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="9" width="16" height="11" rx="1"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg>
+        <div><div class="ft">Smart, secure &amp; watchful</div><div class="fd">Climate and security run themselves; the house quietly looks out for everyone in it.</div></div>
+      </div>
+      <div class="feat reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a6 6 0 0 0-6 6c0 4 6 12 6 12s6-8 6-12a6 6 0 0 0-6-6Z"/></svg>
+        <div><div class="ft">A car you can use</div><div class="fd">There&rsquo;s a car on the property &mdash; anyone with a licence is welcome to drive it.</div></div>
+      </div>
+      <div class="feat reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5M15 20c0-2 2-3.5 4-3.5"/></svg>
+        <div><div class="ft">Kitchen, garden &amp; ocean</div><div class="fd">A full kitchen and outdoor space &mdash; and the Atlantic just 15 minutes away.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW IT WORKS ================= -->
+<section class="exchange" id="exchange">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num mono">03 &mdash; How it works</span>
+      <h2>No rent. Just be part of the home.</h2>
+      <p>
+        Here is the honest version, with no fine print. You give time and presence; you get a home. It is not a job and there are no fixed hours &mdash; it works the way help works in a family.
+      </p>
+    </div>
+    <div class="ex-grid">
+      <div class="ex-col give">
+        <h3>What I ask</h3>
+        <p class="ex-lead">A little, most days &mdash; arranged naturally around your own work.</p>
+        <div class="ex-item"><span class="dot"></span><span>Be around, and lend a hand with small things &mdash; passing me a crutch, carrying something, the bits I can&rsquo;t rush.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>A run to the shop a couple of times a week.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>The odd drive &mdash; there&rsquo;s a car, and anyone with a licence can use it.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>Speak English with me. I&rsquo;m still learning, and a housemate to practise with means a lot.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>Mostly: be an easy, reliable, kind person to share a home with.</span></div>
+        <p class="ex-note">No timesheet, no shifts. The smart home handles everything mechanical. What it can&rsquo;t do is be human &mdash; that&rsquo;s the part I&rsquo;m asking for.</p>
+      </div>
+      <div class="ex-col get">
+        <h3>What you get</h3>
+        <p class="ex-lead">A genuine home base while you focus on your own work.</p>
+        <div class="ex-item"><span class="dot"></span><span>A private room of your own &mdash; no rent, ever.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>Every bill included: power, water, heating, fast internet.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>A real workspace for your own work.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>A car you can use.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>The ocean 15 minutes away, and the Nazar&eacute; surf coast within reach.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>A warm household &mdash; and someone glad to show you why Portugal is worth knowing.</span></div>
+        <p class="ex-note">Gifts are always welcome &mdash; someone brought a bottle of kefir the other day. But that&rsquo;s never the point. The point is good company.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHO IT'S FOR ================= -->
+<section id="who">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num mono">04 &mdash; Who it&rsquo;s for</span>
+      <h2>For people who are easy to live with</h2>
+    </div>
+    <div class="who-grid">
+      <ul class="who-list reveal">
+        <li>Remote workers and freelancers who&rsquo;d rather not pay Porto rent.</li>
+        <li>Makers, developers, designers &mdash; anyone building their own thing.</li>
+        <li>Couples and families with children &mdash; the rooms have two beds.</li>
+        <li>Surfers and ocean people: the coast and Nazar&eacute; are close.</li>
+        <li>Anyone between things who wants a warm base for a while.</li>
+      </ul>
+      <div class="who-not reveal">
+        <h3>Probably not for you if&hellip;</h3>
+        <p>
+          &hellip;you want a hotel or a hands-off rental. This is a shared home, and it only works if you&rsquo;re someone who can be relied on for small, everyday help and genuinely good company. If that sounds like you, you&rsquo;ll fit right in.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LOCATION ================= -->
+<section class="loc" id="location">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num mono">05 &mdash; Where</span>
+      <h2>Near Porto &mdash; and 15 minutes from the ocean</h2>
+      <p class="lead">
+        Domovoy sits a short drive from Porto, with the Atlantic just 15 minutes away. This stretch of coast is one of the world&rsquo;s great surf regions &mdash; Nazar&eacute;, up the coast, sees the biggest waves on the planet.
+      </p>
+    </div>
+    <div class="loc-grid">
+      <div>
+        <div class="loc-points">
+          <div><div class="lp-n">Porto</div><div class="lp-l">city, food &amp; coworking, a short drive</div></div>
+          <div><div class="lp-n">Ocean</div><div class="lp-l">Atlantic beaches 15 minutes away</div></div>
+          <div><div class="lp-n">Nazar&eacute;</div><div class="lp-l">record-breaking surf, biggest waves Nov&ndash;Dec</div></div>
+          <div><div class="lp-n">OPO</div><div class="lp-l">international airport, easy to reach</div></div>
+        </div>
+      </div>
+      <div>
+        <!-- Replace with a map image or photo of the coast -->
+        <figure class="ph ph--tall">
+          <span class="ph__tag mono">Photo 05</span>
+          <svg class="ph__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/>
+          </svg>
+          <span class="ph__cap">A map of the area, or a photo of the coast</span>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= APPLY ================= -->
+<section id="apply">
+  <div class="wrap">
+    <div class="apply-box">
+      <div>
+        <span class="sec-num mono">06 &mdash; Apply</span>
+        <h2>Want to come and live here?</h2>
+        <p>
+          There are two private rooms. This is a shared home, so it starts with a conversation &mdash; a little about you, a little about the house, and an honest sense of whether we&rsquo;d get along. Get in touch and tell me who you are.
+        </p>
+        <div class="contact-row">
+          <a href="https://wa.me/351927596248" target="_blank" rel="noopener" class="ci" aria-label="WhatsApp">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="https://t.me/valerio2025" target="_blank" rel="noopener" class="ci" aria-label="Telegram">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="#26A5E4"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+          <span class="contact-or">or write to <a href="mailto:info@goippro.com">info@goippro.com</a></span>
+        </div>
+      </div>
+      <div>
+        <ul class="apply-list">
+          <li><span class="qn">01</span><span>Who you are and what you do.</span></li>
+          <li><span class="qn">02</span><span>When you&rsquo;d like to arrive, and for how long (a month minimum).</span></li>
+          <li><span class="qn">03</span><span>Whether it&rsquo;s just you, or a partner or family.</span></li>
+          <li><span class="qn">04</span><span>Why this appeals to you, and what you&rsquo;d be happy to help with.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq">
+  <div class="wrap" style="max-width: 860px;">
+    <div class="sec-head">
+      <span class="sec-num mono">07 &mdash; Questions</span>
+      <h2>Good things to ask</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q">Do I really pay nothing? <span class="ic">+</span></button>
+      <div class="faq-a"><p>Nothing. No rent and no fee, and the house bills are included &mdash; power, water, heating and internet. You cover your own food, travel and personal spending. Small gifts are welcome but never expected.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">What kind of help do you need? <span class="ic">+</span></button>
+      <div class="faq-a"><p>Light, everyday things &mdash; a hand with what I can&rsquo;t do quickly, a shop run a couple of times a week, the occasional drive. There are no fixed hours. It works like help in a family, not a shift at a job.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Why is there no rent? <span class="ic">+</span></button>
+      <div class="faq-a"><p>I&rsquo;m an older entrepreneur and I&rsquo;m half-disabled &mdash; I don&rsquo;t move as fast as I used to. My children have grown and moved abroad, and the house is bigger than I need. I&rsquo;d far rather share it with good people than rent it to strangers.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">How long can I stay? <span class="ic">+</span></button>
+      <div class="faq-a"><p>A month at minimum, so we both have time to settle in. Longer stays are welcome and easy to arrange once you&rsquo;re here.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Can I come with a partner or children? <span class="ic">+</span></button>
+      <div class="faq-a"><p>Yes. Each room has two beds, so a couple or a small family works well. Just mention it when you write.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Can I actually get my own work done? <span class="ic">+</span></button>
+      <div class="faq-a"><p>Yes &mdash; that&rsquo;s the idea. Fast fibre throughout, a proper workspace and a private room of your own. The house is set up for people who work.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Do I need to speak Portuguese? <span class="ic">+</span></button>
+      <div class="faq-a"><p>No. We get by in English &mdash; and helping me practise mine is part of the deal. Portuguese is handy for daily life around Porto, but it&rsquo;s never required.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">What is the &ldquo;smart home&rdquo; part? <span class="ic">+</span></button>
+      <div class="faq-a"><p>The house manages climate, light, security and energy on its own, with access through an app. It also keeps a quiet eye on everyone inside &mdash; it was built so that if someone falls, it is noticed.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="foot-brand">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M16 3 4 13v15h24V13L16 3Z" stroke="#BE4A29" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="16" cy="20" r="3.4" fill="#BE4A29"/>
+            <path d="M16 20v6" stroke="#BE4A29" stroke-width="2"/>
+          </svg>
+          Domovoy
+        </div>
+        <p class="foot-note" style="margin-top:14px;">
+          A coliving home near Porto &mdash; part of the Domovoy smart-home project. We live together, and we work together.
+        </p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h4>The home</h4>
+          <a href="#idea">The idea</a>
+          <a href="#house">The house</a>
+          <a href="#exchange">How it works</a>
+          <a href="#who">Who it&rsquo;s for</a>
+        </div>
+        <div class="foot-col">
+          <h4>Get in touch</h4>
+          <a href="https://wa.me/351927596248" target="_blank" rel="noopener" class="foot-ci">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp
+          </a>
+          <a href="https://t.me/valerio2025" target="_blank" rel="noopener" class="foot-ci">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#26A5E4"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            Telegram
+          </a>
+          <a href="mailto:info@goippro.com" class="foot-ci">info@goippro.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 Domovoy &mdash; Porto, Portugal</span>
+      <span class="mono">domovoy &mdash; the spirit that keeps a home alive</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // nav state on scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // mobile menu
+  const toggle = document.getElementById('menuToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  // faq accordion
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const ans = q.nextElementSibling;
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if (!open) {
+        item.classList.add('open');
+        ans.style.maxHeight = ans.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i % 3) * 0.08 + 's';
+    io.observe(el);
+  });
+</script>
+
+</body>
+</html>
