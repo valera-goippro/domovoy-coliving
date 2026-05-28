@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Domovoy — Coliving in a Smart Home near Porto</title>
+<meta name="description" content="Two private rooms in a smart home near Porto, Portugal. No rent — a little help and good company instead. Fifteen minutes from the ocean.">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body.cvroot{
+    --bone:#F3ECE0;--bone-2:#FBF6EC;--ink:#241F19;--ink-soft:#473F35;
+    --clay:#B4421F;--clay-deep:#8E3216;--sage:#41513C;--sand:#E7DCC8;
+    --line:#C9BB9F;--maxw:1180px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif;
+    background:var(--bone);color:var(--ink);line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  .cvroot h1,.cvroot h2,.cvroot h3{font-family:'Iowan Old Style','Hoefler Text','Palatino Linotype',Palatino,Georgia,serif;font-weight:500;line-height:1.08;letter-spacing:-0.015em}
+  .cvroot a{color:inherit}
+  .cvroot .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .cvroot .mono{font-family:ui-monospace,'SF Mono',Menlo,Consolas,'Roboto Mono',monospace;font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase}
+  .cvroot nav{position:sticky;top:0;z-index:100;padding:14px 0;background:rgba(243,236,224,0.98);box-shadow:0 1px 0 var(--line)}
+  .cvroot .nav-inner{display:flex;align-items:center;justify-content:space-between}
+  .cvroot .brand{display:flex;align-items:center;gap:11px;font-family:'Iowan Old Style','Hoefler Text',Palatino,Georgia,serif;font-size:1.32rem;font-weight:600;letter-spacing:-0.02em;text-decoration:none}
+  .cvroot .brand svg{width:30px;height:30px;flex-shrink:0}
+  .cvroot .nav-links{display:flex;gap:30px;align-items:center}
+  .cvroot .nav-links a{text-decoration:none;font-size:0.95rem;font-weight:600;color:var(--ink-soft);transition:color .2s}
+  .cvroot .nav-links a:hover{color:var(--clay)}
+  .cvroot .btn{display:inline-block;background:var(--clay);color:#FFF;padding:12px 22px;border-radius:100px;text-decoration:none;font-weight:600;font-size:0.95rem;transition:transform .2s ease,background .2s ease;border:none;cursor:pointer}
+  .cvroot .btn:hover{background:var(--clay-deep);transform:translateY(-2px)}
+  .cvroot .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .cvroot .btn-ghost:hover{background:var(--ink);color:var(--bone-2)}
+  .cvroot .menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:6px}
+  .cvroot .menu-toggle span{display:block;width:26px;height:2px;background:var(--ink);margin:5px 0;transition:.3s}
+  .cvroot header.hero{position:relative;padding:40px 0 90px;overflow:hidden}
+  .cvroot .hero-glow{position:absolute;top:-10%;right:-8%;width:620px;height:620px;background:radial-gradient(circle,rgba(180,66,31,0.20),transparent 65%);pointer-events:none}
+  .cvroot .hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;align-items:center}
+  .cvroot .hero-eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--clay);margin-bottom:26px;font-weight:600}
+  .cvroot .hero-eyebrow::before{content:"";width:26px;height:1.5px;background:var(--clay)}
+  .cvroot h1{font-size:clamp(2.4rem,5.6vw,4.4rem);margin-bottom:26px}
+  .cvroot h1 em{font-style:italic;color:var(--clay)}
+  .cvroot .hero-sub{font-size:1.14rem;color:var(--ink-soft);max-width:35em;margin-bottom:34px}
+  .cvroot .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .cvroot .hero-meta{margin-top:40px;display:flex;gap:34px;flex-wrap:wrap}
+  .cvroot .hero-meta .n{font-family:'Iowan Old Style','Hoefler Text',Palatino,Georgia,serif;font-size:1.9rem;font-weight:600;color:var(--ink)}
+  .cvroot .hero-meta .l{font-size:0.86rem;color:var(--ink-soft)}
+  .cvroot .ph{position:relative;background:var(--sand);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+  .cvroot .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .cvroot .ph--hero{aspect-ratio:4/5}
+  .cvroot .ph--wide{aspect-ratio:16/10}
+  .cvroot .ph--sq{aspect-ratio:1/1}
+  .cvroot .ph--tall{aspect-ratio:3/4}
+  .cvroot section{padding:96px 0;position:relative}
+  .cvroot .sec-head{max-width:42em;margin-bottom:56px}
+  .cvroot .sec-num{color:var(--clay);margin-bottom:16px;display:block;font-weight:600}
+  .cvroot h2{font-size:clamp(2rem,3.8vw,3rem);margin-bottom:18px}
+  .cvroot .sec-head p{font-size:1.1rem;color:var(--ink-soft)}
+  .cvroot .band{background:var(--ink);color:var(--bone)}
+  .cvroot .band .sec-num{color:#F0A982}
+  .cvroot .band .sec-head p,.cvroot .band p.lead{color:#F7F1E2}
+  .cvroot .idea-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+  .cvroot .idea-card{border-top:2px solid rgba(243,236,224,0.45);padding-top:22px}
+  .cvroot .idea-card .k{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:0.78rem;color:#F0A982;letter-spacing:0.1em;font-weight:600}
+  .cvroot .idea-card h3{font-size:1.4rem;margin:12px 0 10px;color:#FBF6EC}
+  .cvroot .idea-card p{color:#EFE6D2;font-size:1rem}
+  .cvroot .house-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .cvroot .house-grid .span2{grid-column:span 2}
+  .cvroot .feat-list{display:grid;grid-template-columns:repeat(2,1fr);gap:2px 40px;margin-top:40px}
+  .cvroot .feat{display:flex;gap:14px;padding:18px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+  .cvroot .feat svg{width:22px;height:22px;flex-shrink:0;color:var(--clay);margin-top:3px}
+  .cvroot .feat .ft{font-weight:700}
+  .cvroot .feat .fd{font-size:0.95rem;color:var(--ink-soft)}
+  .cvroot .exchange{background:var(--bone-2)}
+  .cvroot .ex-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .cvroot .ex-col{padding:44px 40px}
+  .cvroot .ex-col:first-child{border-right:1px solid var(--line);background:var(--sand)}
+  .cvroot .ex-col h3{font-size:1.55rem;margin-bottom:8px}
+  .cvroot .ex-col .ex-lead{font-size:0.96rem;color:var(--ink-soft);margin-bottom:26px;font-weight:600}
+  .cvroot .ex-item{display:flex;gap:13px;padding:13px 0;align-items:flex-start}
+  .cvroot .ex-item .dot{width:8px;height:8px;border-radius:50%;background:var(--clay);flex-shrink:0;margin-top:9px}
+  .cvroot .ex-col.get .ex-item .dot{background:var(--sage)}
+  .cvroot .ex-item span{font-size:1rem}
+  .cvroot .ex-note{margin-top:26px;font-size:0.97rem;color:var(--ink-soft)}
+  .cvroot .ex-note strong{color:var(--ink)}
+  .cvroot .who-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+  .cvroot .who-list{list-style:none}
+  .cvroot .who-list li{padding:16px 0;border-bottom:1px solid var(--line);font-size:1.06rem;display:flex;gap:14px}
+  .cvroot .who-list li::before{content:"\2192";color:var(--clay);font-weight:700}
+  .cvroot .who-not{background:var(--sand);border-radius:6px;padding:30px 32px}
+  .cvroot .who-not h3{font-size:1.25rem;margin-bottom:14px}
+  .cvroot .who-not p{color:var(--ink-soft);font-size:1rem}
+  .cvroot .loc{background:var(--sage);color:#F1EADC}
+  .cvroot .loc .sec-num{color:#CDD6BE}
+  .cvroot .loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+  .cvroot .loc h2{color:#FBF6EC}
+  .cvroot .loc .lead{color:#F4EEDF;font-size:1.1rem}
+  .cvroot .loc-points{display:grid;grid-template-columns:1fr 1fr;gap:24px 30px;margin-top:30px}
+  .cvroot .loc-points div .lp-n{font-family:'Iowan Old Style','Hoefler Text',Palatino,Georgia,serif;font-size:1.5rem;font-weight:600;color:#FBF6EC}
+  .cvroot .loc-points div .lp-l{font-size:0.9rem;color:#E8EDDB}
+  .cvroot .apply-box{background:var(--ink);color:var(--bone);border-radius:10px;padding:60px 56px;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+  .cvroot .apply-box h2{color:#FBF6EC}
+  .cvroot .apply-box .sec-num{color:#F0A982}
+  .cvroot .apply-box p{color:#F2EBDB;margin-bottom:22px}
+  .cvroot .apply-list{list-style:none;margin-bottom:26px}
+  .cvroot .apply-list li{padding:9px 0;font-size:0.98rem;color:#F2EBDB;border-bottom:1px solid rgba(243,236,224,0.28);display:flex;gap:12px}
+  .cvroot .apply-list li .qn{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.78rem;color:#F0A982}
+  .cvroot .contact-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .cvroot .contact-ic{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;text-decoration:none}
+  .cvroot .contact-ic svg{width:26px;height:26px}
+  .cvroot .contact-row .or{color:#E6DECF;font-size:0.95rem}
+  .cvroot .contact-row .or a{color:#F0A982;font-weight:600}
+  .cvroot .faq-item{border-bottom:1px solid var(--line)}
+  .cvroot .faq-q{width:100%;background:none;border:none;cursor:pointer;text-align:left;padding:24px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;font-family:'Iowan Old Style','Hoefler Text',Palatino,Georgia,serif;font-size:1.22rem;font-weight:500;color:var(--ink)}
+  .cvroot .faq-q .ic{font-size:1.6rem;color:var(--clay);transition:transform .3s ease;flex-shrink:0;line-height:1}
+  .cvroot .faq-item.open .faq-q .ic{transform:rotate(45deg)}
+  .cvroot .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .cvroot .faq-a p{padding:0 0 24px;color:var(--ink-soft);max-width:54em}
+  .cvroot footer{background:var(--ink);color:#C9C1B2;padding:64px 0 40px}
+  .cvroot .foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:36px;border-bottom:1px solid rgba(243,236,224,0.18)}
+  .cvroot .foot-brand{display:flex;align-items:center;gap:11px;font-family:'Iowan Old Style','Hoefler Text',Palatino,Georgia,serif;font-size:1.3rem;font-weight:600;color:#FBF6EC}
+  .cvroot .foot-brand svg{width:28px;height:28px}
+  .cvroot .foot-note{max-width:32em;margin-top:14px;color:#C9C1B2}
+  .cvroot .foot-cols{display:flex;gap:56px;flex-wrap:wrap}
+  .cvroot .foot-col h4{font-family:-apple-system,system-ui,sans-serif;font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;color:#9E9787;margin-bottom:14px}
+  .cvroot .foot-col a{display:block;text-decoration:none;color:#D8D0C1;padding:4px 0;font-size:0.96rem}
+  .cvroot .foot-col a:hover{color:var(--clay)}
+  .cvroot .foot-bottom{padding-top:28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:0.86rem;color:#9E9787}
+  @media (max-width:900px){
+    .cvroot .hero-grid,.cvroot .house-grid,.cvroot .ex-grid,.cvroot .who-grid,.cvroot .loc-grid,.cvroot .apply-box,.cvroot .idea-grid,.cvroot .feat-list,.cvroot .loc-points{grid-template-columns:1fr}
+    .cvroot .house-grid .span2{grid-column:span 1}
+    .cvroot .ex-col:first-child{border-right:none;border-bottom:1px solid var(--line)}
+    .cvroot .nav-links{display:none}
+    .cvroot .menu-toggle{display:block}
+    .cvroot .nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--bone-2);padding:24px 28px;gap:18px;box-shadow:0 12px 24px rgba(0,0,0,0.14)}
+    .cvroot header.hero{padding:32px 0 70px}
+    .cvroot section{padding:70px 0}
+    .cvroot .apply-box{padding:42px 30px}
+    .cvroot .ph--hero{aspect-ratio:4/3}
+  }
+</style>
+</head>
+<body class="cvroot">
+<nav>
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">
+      <svg viewBox="0 0 32 32" fill="none"><path d="M16 3 4 13v15h24V13L16 3Z" stroke="#B4421F" stroke-width="2" stroke-linejoin="round"/><circle cx="16" cy="20" r="3.4" fill="#B4421F"/><path d="M16 20v6" stroke="#B4421F" stroke-width="2"/></svg>
+      Domovoy
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#idea">The idea</a>
+      <a href="#house">The house</a>
+      <a href="#exchange">How it works</a>
+      <a href="#who">Who it's for</a>
+      <a href="#faq">FAQ</a>
+      <a href="#apply" class="btn">Apply to live here</a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<header class="hero" id="top">
+  <div class="hero-glow"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="hero-eyebrow mono">Coliving &middot; A smart home near Porto, Portugal</span>
+      <h1>The house runs itself. What I'd like is good <em>company</em>.</h1>
+      <p class="hero-sub">I'm an older entrepreneur, and some years ago I turned this house near Porto into a proper smart home &mdash; it runs the climate, the lighting, the security and the energy by itself. My children grew up here and then scattered across different countries, the way children do, and the house became far larger than one person needs. I'm also half-disabled; I don't move around the way I used to. So rather than rent rooms to strangers, I'd like to share the house the way a home is meant to be shared &mdash; with people who will live in it well. There is no rent. What I ask for instead is a hand with the small things, and good company at the table.</p>
+      <div class="hero-cta">
+        <a href="#apply" class="btn">Apply to live here</a>
+        <a href="#exchange" class="btn btn-ghost">How it works</a>
+      </div>
+      <div class="hero-meta">
+        <div><div class="n">2</div><div class="l">private rooms open</div></div>
+        <div><div class="n">&euro;0</div><div class="l">no rent &mdash; bills included</div></div>
+        <div><div class="n">15 min</div><div class="l">to the ocean</div></div>
+      </div>
+    </div>
+    <div>
+      <figure class="ph ph--hero"><img src="img/02.jpg" alt="The common room of the house — sofas, a place to work and gather"></figure>
+    </div>
+  </div>
+</header>
+<section class="band" id="idea">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num mono">01 &mdash; The idea</span>
+      <h2>A household, not a rental</h2>
+      <p>This is not a business and not a hostel &mdash; it is my home, and I'm inviting a few people to share it. The idea is an old one. Long before anyone called it "coliving", a big house simply held a household: several people under one roof, each doing what they could, the meals and the evenings and the work all shared. That is all this is. The smart system takes care of the building itself. The rest &mdash; the company, the small kindnesses, the sense that someone is home &mdash; is what we give each other instead of paying rent.</p>
+    </div>
+    <div class="idea-grid">
+      <div class="idea-card"><span class="k">/ live</span><h3>A room of your own</h3><p>A private bedroom with two real beds, fully furnished &mdash; quiet when you need it, with a whole house around you when you don't.</p></div>
+      <div class="idea-card"><span class="k">/ work</span><h3>Room to do your work</h3><p>Fast fibre in every corner, proper desks, and more than one place to settle in &mdash; including a terrace in the sun.</p></div>
+      <div class="idea-card"><span class="k">/ share</span><h3>Time, not money</h3><p>No rent, no fee, no deposit. In return, a little help through the week and the kind of company that makes a house a home.</p></div>
+    </div>
+  </div>
+</section>
+<section id="house">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num mono">02 &mdash; The house</span>
+      <h2>A home that quietly takes care of itself</h2>
+      <p>I built Domovoy slowly, the way you build something you mean to live in for good. It is a real smart home: climate, lighting, security and energy all managed on their own, with access given and revoked through an app. It also keeps a quiet watch over the people inside it &mdash; it was built so that if someone falls, or something is wrong, it is noticed straight away. The house is large and easy to live in: a long, bright corridor, two staircases, a kitchen made for cooking together, a garden, a terrace, even a small gym. There is room here to be among people, and room to be alone &mdash; whichever the day asks for.</p>
+    </div>
+    <div class="house-grid">
+      <figure class="ph ph--wide span2"><img src="img/01.jpg" alt="A small terrace by the entrance, with seats outside the door"></figure>
+      <figure class="ph ph--sq"><img src="img/03.jpg" alt="A private bedroom, one of two open"></figure>
+      <figure class="ph ph--sq"><img src="img/04.jpg" alt="The small gym in the house"></figure>
+    </div>
+    <div class="feat-list">
+      <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v18M3 12h18"/></svg><div><div class="ft">Two private bedrooms</div><div class="fd">Each with two real beds and fully furnished &mdash; room enough for one person, a couple, or a small family.</div></div></div>
+      <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="13" rx="1"/><path d="M8 21h8"/></svg><div><div class="ft">More than one place to work</div><div class="fd">A calm common room with desks, and a terrace where you can work outdoors in good weather.</div></div></div>
+      <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12.5a9 9 0 0 1 14 0M8.5 16a4.5 4.5 0 0 1 7 0M12 19h.01"/></svg><div><div class="ft">Fast fibre, everywhere</div><div class="fd">Repeaters through the whole house and across the grounds &mdash; a steady connection indoors and out.</div></div></div>
+      <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="9" width="16" height="11" rx="1"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg><div><div class="ft">A smart, watchful home</div><div class="fd">Climate and security run themselves, access is managed cleanly, and the house looks out for everyone in it.</div></div></div>
+      <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13l2-5h12l2 5M5 17h12M5 17a2 2 0 0 1-2-2v-2h16v2a2 2 0 0 1-2 2"/><circle cx="7.5" cy="14.5" r="1.3"/><circle cx="14.5" cy="14.5" r="1.3"/></svg><div><div class="ft">A car to share</div><div class="fd">There's a car here that anyone with a licence is welcome to use &mdash; for the shops, the coast, a day out.</div></div></div>
+      <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a6 6 0 0 0-6 6c0 4 6 12 6 12s6-8 6-12a6 6 0 0 0-6-6Z"/></svg><div><div class="ft">Kitchen, garden &amp; gym</div><div class="fd">A full kitchen, a garden, a terrace and a small gym &mdash; and the Atlantic only fifteen minutes away.</div></div></div>
+    </div>
+  </div>
+</section>
+<section class="exchange" id="exchange">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num mono">03 &mdash; How it works</span>
+      <h2>No rent. A fair, human trade instead.</h2>
+      <p>Here is the honest version, with nothing hidden. You give a little time and your presence; in return, you have a home. It is not a job &mdash; no shifts, no hours to clock. It works the way help has always worked in a family: whoever is near lends a hand.</p>
+    </div>
+    <div class="ex-grid">
+      <div class="ex-col give">
+        <h3>What I ask</h3>
+        <p class="ex-lead">A little through the week, arranged easily around your own work.</p>
+        <div class="ex-item"><span class="dot"></span><span>Be around, and give me a hand with small things &mdash; passing me a crutch, carrying something up the stairs, the bits I can no longer rush.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>A run to the shops a couple of times a week.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>The odd drive when one is needed &mdash; the car is there for it.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>Speak English with me. I'm still learning it, and a housemate to practise with day to day is worth a great deal.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>And mostly &mdash; simply be an easy, kind, reliable person to share a home with.</span></div>
+        <p class="ex-note"><strong>No timesheet, no rota.</strong> The smart house does everything mechanical. The one thing it can't do is be human &mdash; and that is the part I'm asking you for.</p>
+      </div>
+      <div class="ex-col get">
+        <h3>What you get</h3>
+        <p class="ex-lead">A genuine base while you get on with your own work and life.</p>
+        <div class="ex-item"><span class="dot"></span><span>A private room that is yours &mdash; no rent, not now and not later.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>Every bill covered: power, water, heating and fast internet.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>Real space to work, indoors and out.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>A car you are free to use.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>The ocean fifteen minutes away, and the great surf coast of Nazar&eacute; within easy reach.</span></div>
+        <div class="ex-item"><span class="dot"></span><span>A warm household &mdash; and someone who knows this country well and is glad to show it to you.</span></div>
+        <p class="ex-note"><strong>A bottle of something nice is always welcome</strong> &mdash; someone turned up with kefir the other day. But gifts are never the point. The company is.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="who">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num mono">04 &mdash; Who it's for</span>
+      <h2>For people who are easy to live with</h2>
+    </div>
+    <div class="who-grid">
+      <ul class="who-list">
+        <li>Remote workers and freelancers who would rather not hand their salary to a Porto landlord.</li>
+        <li>Makers, developers, designers &mdash; anyone building something of their own.</li>
+        <li>Couples and families with children; the rooms are made for two.</li>
+        <li>Surfers and people drawn to the ocean &mdash; the coast and Nazar&eacute; are close.</li>
+        <li>Anyone between chapters who needs a warm, steady place to be for a while.</li>
+      </ul>
+      <div class="who-not">
+        <h3>Probably not for you if&hellip;</h3>
+        <p>&hellip;you're after a hotel, or a rental you never have to think about. This is a shared home. It works only if you're the kind of person others can count on for a small hand and honest company. If that's you, you'll feel at home here quickly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="loc" id="location">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num mono">05 &mdash; Where</span>
+      <h2>Near Porto &mdash; and fifteen minutes from the ocean</h2>
+      <p class="lead">The house sits a short drive outside Porto &mdash; close enough for the city's caf&eacute;s, markets and coworking, far enough for quiet. The Atlantic is fifteen minutes away. This whole coast is one of the world's great surf regions; at Nazar&eacute;, just up the shoreline, the winter swell raises the biggest rideable waves on the planet.</p>
+    </div>
+    <div class="loc-grid">
+      <div>
+        <div class="loc-points">
+          <div><div class="lp-n">Porto</div><div class="lp-l">city, food &amp; coworking, a short drive</div></div>
+          <div><div class="lp-n">Ocean</div><div class="lp-l">Atlantic beaches fifteen minutes away</div></div>
+          <div><div class="lp-n">Nazar&eacute;</div><div class="lp-l">record-breaking surf, biggest waves Nov&ndash;Dec</div></div>
+          <div><div class="lp-n">OPO</div><div class="lp-l">international airport, easy to reach</div></div>
+        </div>
+      </div>
+      <div>
+        <figure class="ph ph--tall"><img src="img/05.jpg" alt="A corridor inside the house, with handrails along the wall"></figure>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="apply">
+  <div class="wrap">
+    <div class="apply-box">
+      <div>
+        <span class="sec-num mono">06 &mdash; Apply</span>
+        <h2>Want to come and live here?</h2>
+        <p>There are two private rooms. Because this is a shared home and not a booking, it begins with a conversation &mdash; a little about you, a little about the house, and an honest read on whether we'd live well together. Send a message and tell me who you are.</p>
+        <div class="contact-row">
+          <a class="contact-ic" style="background:#25D366" href="https://wa.me/351927596248" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="#fff"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.6.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.8-3.4-.3-.5.3-.5.8-1.5.1-.2 0-.4 0-.5-.1-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.7.8-1 1.7-1 2.8 0 1.7 1.2 3.3 1.4 3.5.2.2 2.5 3.8 6 5.1 2.2.8 3 .9 4 .7.6-.1 1.7-.7 2-1.4.2-.6.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3M12 21.5c-1.7 0-3.3-.4-4.7-1.3l-3.3.9.9-3.2A9.4 9.4 0 0 1 2.6 12C2.6 6.8 6.8 2.6 12 2.6S21.4 6.8 21.4 12 17.2 21.5 12 21.5M12 .6C5.7.6.6 5.7.6 12c0 2 .5 3.9 1.5 5.6L.5 23.4l5.9-1.5c1.6.9 3.5 1.4 5.5 1.4 6.3 0 11.4-5.1 11.4-11.4S18.3.6 12 .6"/></svg></a>
+          <a class="contact-ic" style="background:#26A5E4" href="https://t.me/valerio2025" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="#fff"><path d="M21.9 4.3 18.6 19.8c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.1 13.1l-4.8-1.5c-1-.3-1.1-1 .2-1.5L20.5 3c.9-.3 1.6.2 1.4 1.3"/></svg></a>
+          <span class="or">or write to <a href="mailto:info@goippro.com">info@goippro.com</a></span>
+        </div>
+      </div>
+      <div>
+        <ul class="apply-list">
+          <li><span class="qn">01</span><span>Who you are and what you do.</span></li>
+          <li><span class="qn">02</span><span>When you'd like to arrive, and for how long (a month minimum).</span></li>
+          <li><span class="qn">03</span><span>Whether it's just you, or a partner or family.</span></li>
+          <li><span class="qn">04</span><span>Why this appeals to you, and what you'd be happy to help with.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="faq">
+  <div class="wrap" style="max-width:860px">
+    <div class="sec-head">
+      <span class="sec-num mono">07 &mdash; Questions</span>
+      <h2>Good things to ask</h2>
+    </div>
+    <div class="faq-item"><button class="faq-q">Do I really pay nothing? <span class="ic">+</span></button><div class="faq-a"><p>Nothing. No rent, no fee, no deposit, and the house bills are included &mdash; power, water, heating and internet. You cover your own food, travel and personal spending. Small gifts are welcome but never expected.</p></div></div>
+    <div class="faq-item"><button class="faq-q">What kind of help do you need? <span class="ic">+</span></button><div class="faq-a"><p>Light, everyday things &mdash; a hand with what I can't do quickly, a shop run a couple of times a week, the occasional drive. There are no fixed hours. It works like help in a family, not a shift at a job.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Why is there no rent? <span class="ic">+</span></button><div class="faq-a"><p>I'm an older entrepreneur and I'm half-disabled &mdash; I don't move as fast as I used to. My children have grown and moved abroad, and the house is bigger than I need. I'd far rather share it with good people than rent it to strangers.</p></div></div>
+    <div class="faq-item"><button class="faq-q">How long can I stay? <span class="ic">+</span></button><div class="faq-a"><p>A month at minimum, so we both have time to settle in. Longer stays are welcome and easy to arrange once you're here.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Can I come with a partner or children? <span class="ic">+</span></button><div class="faq-a"><p>Yes. Each room has two beds, so a couple or a small family works well. Just mention it when you write.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Can I actually get my own work done? <span class="ic">+</span></button><div class="faq-a"><p>Yes &mdash; that's the idea. Fast fibre throughout, proper desks indoors and a terrace to work from outside, and a private room of your own. The house is set up for people who work.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Do I need to speak Portuguese? <span class="ic">+</span></button><div class="faq-a"><p>No. We get by in English &mdash; and helping me practise mine is part of the deal. Portuguese is handy for daily life around Porto, but it's never required.</p></div></div>
+    <div class="faq-item"><button class="faq-q">What is the "smart home" part? <span class="ic">+</span></button><div class="faq-a"><p>The house manages climate, light, security and energy on its own, with access through an app. It also keeps a quiet eye on everyone inside &mdash; it was built so that if someone falls, it is noticed.</p></div></div>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="foot-brand"><svg viewBox="0 0 32 32" fill="none"><path d="M16 3 4 13v15h24V13L16 3Z" stroke="#B4421F" stroke-width="2" stroke-linejoin="round"/><circle cx="16" cy="20" r="3.4" fill="#B4421F"/><path d="M16 20v6" stroke="#B4421F" stroke-width="2"/></svg>Domovoy</div>
+        <p class="foot-note">A coliving home near Porto &mdash; part of the Domovoy smart-home project. We live together, and we work together.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col"><h4>The home</h4><a href="#idea">The idea</a><a href="#house">The house</a><a href="#exchange">How it works</a><a href="#who">Who it's for</a></div>
+        <div class="foot-col"><h4>Get in touch</h4><a href="https://wa.me/351927596248">WhatsApp</a><a href="https://t.me/valerio2025">Telegram</a><a href="mailto:info@goippro.com">info@goippro.com</a></div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 Domovoy &middot; Porto, Portugal</span>
+      <span class="mono">domovoy &mdash; the spirit that keeps a home alive</span>
+    </div>
+  </div>
+</footer>
+<script>
+  (function(){
+    var toggle=document.getElementById('menuToggle');
+    var links=document.getElementById('navLinks');
+    if(toggle){toggle.addEventListener('click',function(){links.classList.toggle('open');});}
+    document.querySelectorAll('.faq-q').forEach(function(q){
+      q.addEventListener('click',function(){
+        var item=q.parentElement;var ans=q.nextElementSibling;
+        var open=item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight=null;});
+        if(!open){item.classList.add('open');ans.style.maxHeight=ans.scrollHeight+'px';}
+      });
+    });
+  })();
+</script>
+</body>
+</html>
