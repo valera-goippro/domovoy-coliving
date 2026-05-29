@@ -64,6 +64,10 @@
   .cvroot .idea-card p{color:#EFE6D2;font-size:1rem}
   .cvroot .house-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
   .cvroot .house-grid .span2{grid-column:span 2}
+  .cvroot .rooms-head{font-family:'Lora','Iowan Old Style','Hoefler Text',Palatino,Georgia,serif;font-size:1.7rem;font-weight:600;color:var(--ink);margin:60px 0 8px}
+  .cvroot .rooms-lead{font-size:1rem;color:var(--ink-soft);margin-bottom:26px;max-width:720px}
+  .cvroot .rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .cvroot .loc-photos{display:flex;flex-direction:column;gap:18px}
   .cvroot .feat-list{display:grid;grid-template-columns:repeat(2,1fr);gap:2px 40px;margin-top:40px}
   .cvroot .feat{display:flex;gap:14px;padding:18px 0;border-bottom:1px solid var(--line);align-items:flex-start}
   .cvroot .feat svg{width:22px;height:22px;flex-shrink:0;color:var(--clay);margin-top:3px}
@@ -125,7 +129,7 @@
   .cvroot .foot-col a:hover{color:var(--clay)}
   .cvroot .foot-bottom{padding-top:28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:0.86rem;color:#9E9787}
   @media (max-width:900px){
-    .cvroot .hero-grid,.cvroot .house-grid,.cvroot .ex-grid,.cvroot .who-grid,.cvroot .loc-grid,.cvroot .apply-box,.cvroot .idea-grid,.cvroot .feat-list,.cvroot .loc-points{grid-template-columns:1fr}
+    .cvroot .hero-grid,.cvroot .house-grid,.cvroot .ex-grid,.cvroot .who-grid,.cvroot .loc-grid,.cvroot .apply-box,.cvroot .idea-grid,.cvroot .feat-list,.cvroot .loc-points,.cvroot .rooms-grid,.cvroot .loc-photos{grid-template-columns:1fr}
     .cvroot .house-grid .span2{grid-column:span 1}
     .cvroot .ex-col:first-child{border-right:none;border-bottom:1px solid var(--line)}
     .cvroot .nav-links{display:none}
@@ -200,9 +204,12 @@
       <p>I built Domovoy slowly, the way you build something you mean to live in for good. It is a real smart home: climate, lighting, security and energy all managed on their own, with access given and revoked through an app. It also keeps a quiet watch over the people inside it &mdash; it was built so that if someone falls, or something is wrong, it is noticed straight away. The house is large and easy to live in: a long, bright corridor, two staircases, a kitchen made for cooking together, a garden, a terrace, even a small gym. There is room here to be among people, and room to be alone &mdash; whichever the day asks for.</p>
     </div>
     <div class="house-grid">
-      <figure class="ph ph--wide span2"><img src="img/01.jpg" alt="A small terrace by the entrance, with seats outside the door"></figure>
-      <figure class="ph ph--sq"><img src="img/03.jpg" alt="A private bedroom, one of two open"></figure>
-      <figure class="ph ph--sq"><img src="img/04.jpg" alt="The small gym in the house"></figure>
+      <figure class="ph ph--sq"><img src="img/01.jpg" alt="A small terrace by the entrance, with seats outside the door"></figure>
+      <figure class="ph ph--sq"><img src="img/06.jpg" alt="The kitchen — induction stove, granite counter, plenty of room"></figure>
+      <figure class="ph ph--sq"><img src="img/07.jpg" alt="The main bathroom — bathtub, bidet, double sink"></figure>
+      <figure class="ph ph--sq"><img src="img/03.jpg" alt="A bunk-bed room with a desk by the window"></figure>
+      <figure class="ph ph--sq"><img src="img/04.jpg" alt="The small gym in the basement with the trampoline"></figure>
+      <figure class="ph ph--sq"><img src="img/08.jpg" alt="The second bathroom, with shower"></figure>
     </div>
     <div class="feat-list">
       <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v18M3 12h18"/></svg><div><div class="ft">Two private bedrooms</div><div class="fd">Each with two real beds and fully furnished &mdash; room enough for one person, a couple, or a small family.</div></div></div>
@@ -211,6 +218,13 @@
       <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="9" width="16" height="11" rx="1"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg><div><div class="ft">A smart, watchful home</div><div class="fd">Climate and security run themselves, access is managed cleanly, and the house looks out for everyone in it.</div></div></div>
       <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13l2-5h12l2 5M5 17h12M5 17a2 2 0 0 1-2-2v-2h16v2a2 2 0 0 1-2 2"/><circle cx="7.5" cy="14.5" r="1.3"/><circle cx="14.5" cy="14.5" r="1.3"/></svg><div><div class="ft">A car to share</div><div class="fd">There's a car here that anyone with a licence is welcome to use &mdash; for the shops, the coast, a day out.</div></div></div>
       <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a6 6 0 0 0-6 6c0 4 6 12 6 12s6-8 6-12a6 6 0 0 0-6-6Z"/></svg><div><div class="ft">Kitchen, garden &amp; gym</div><div class="fd">A full kitchen, a garden, a terrace and a small gym &mdash; and the Atlantic only fifteen minutes away.</div></div></div>
+    </div>
+    <h3 class="rooms-head">Three bedrooms ready for you</h3>
+    <p class="rooms-lead">Two private rooms for guests, plus a third with bunk beds &mdash; useful for two friends or a small family.</p>
+    <div class="rooms-grid">
+      <figure class="ph ph--sq"><img src="img/09.jpg" alt="A bedroom with a double bed and a big window"></figure>
+      <figure class="ph ph--sq"><img src="img/10.jpg" alt="A bedroom with a single bed and a workspace"></figure>
+      <figure class="ph ph--sq"><img src="img/11.jpg" alt="A bedroom with bunk beds, useful for two friends"></figure>
     </div>
   </div>
 </section>
@@ -283,7 +297,8 @@
           <div><div class="lp-n">OPO</div><div class="lp-l">international airport, easy to reach</div></div>
         </div>
       </div>
-      <div>
+      <div class="loc-photos">
+        <figure class="ph ph--tall"><img src="img/12.jpg" alt="A view from the house toward the church next door"></figure>
         <figure class="ph ph--tall"><img src="img/05.jpg" alt="A corridor inside the house, with handrails along the wall"></figure>
       </div>
     </div>
